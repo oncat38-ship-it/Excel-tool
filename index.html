@@ -1,0 +1,44 @@
+<!doctype html><html lang="ja"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Excel はじめの一歩</title>
+<style>
+body{margin:0;background:#f5f7f9;color:#222;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;line-height:1.7}
+header{background:#217346;color:#fff;padding:22px}main,.wrap{max-width:960px;margin:auto}nav a{color:#fff;margin-right:15px;text-decoration:none;font-size:14px}
+main{padding:25px 15px 60px}.box,.card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 3px 14px #0001}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px}.card{text-decoration:none;color:#222;border:1px solid #e2e7e4;box-shadow:none}
+.card:hover{box-shadow:0 4px 13px #0002}.cat{color:#217346;font-size:12px;font-weight:bold}.card h3{margin:5px 0}.card p{color:#666;font-size:14px}.btn{display:inline-block;background:#217346;color:#fff;padding:9px 14px;border-radius:7px;text-decoration:none}.back{color:#217346;text-decoration:none}
+.page{display:none}.simple{background:#eef7f1;border-left:4px solid #217346;padding:15px}.tip{background:#fff7df;border-left:4px solid #d59a20;padding:15px}footer{text-align:center;color:#777;font-size:12px;padding:20px}
+</style></head><body>
+<header><div class="wrap"><b style="font-size:24px">Excel はじめの一歩</b><div style="font-size:13px">Excelを使うときに調べられる場所</div>
+<nav><a href="#home">ホーム</a><a href="#terms">使うときに覚えておきたい単語</a></nav></div></header>
+<main class="wrap">
+<section id="home" class="page"><div class="box"><h1>Excelを使うときに覚えておきたい単語</h1>
+<p>「セル」「シート」「行」「列」など、最初は意味が分かりにくい言葉をまとめています。</p>
+<p>全部暗記する必要はありません。分からない言葉が出てきたときに確認してください。</p>
+<a class="btn" href="#terms">単語一覧を見る →</a></div></section>
+<section id="terms" class="page"><a class="back" href="#home">← ホームへ戻る</a>
+<div class="box"><h1>使うときに覚えておきたい単語</h1><p>一覧では簡易説明だけ。詳しい内容は各ページで確認できます。</p></div><div id="cards"></div></section>
+<section id="detail" class="page box"></section>
+</main><footer>Excel はじめの一歩・試作版</footer>
+<script>
+const data=[
+["セル","基本用語","Excelのマス目一つ一つ。文字や数字を入力する場所です。","Excelの表を構成する一つ一つの区画をセルと呼びます。「A1」「B3」のように列と行の組み合わせで場所を表します。"],
+["行","基本用語","横方向に並んでいるまとまり。左側の番号で区別されます。","横方向の並びを行と呼び、1、2、3……という番号が付きます。高さの変更や追加・削除などで使います。"],
+["列","基本用語","縦方向に並んでいるまとまり。上側のアルファベットで区別されます。","縦方向の並びを列と呼び、A、B、C……で区別します。列幅の変更や追加・削除などで使います。"],
+["シート","ファイル・整理","Excelファイルの中にある作業ページのようなものです。","一つのExcelファイルには複数のシートを入れられます。「売上」「在庫」など目的ごとに分けて管理できます。"],
+["ブック","ファイル・整理","Excelで保存する一つのファイル全体を指します。","複数のシートをまとめた一つのExcelファイルをブックと呼びます。普段の「Excelファイル」に近い言葉です。"],
+["数式","計算","Excelで計算をさせるための式。基本的に「=」から始まります。","「=A1+B1」のように入力すると計算できます。単純な計算から複雑な処理まで、数式で自動化できます。"],
+["関数","計算","あらかじめ用意された計算・処理の仕組みです。","SUM、AVERAGE、IF、XLOOKUPなどが代表例。複雑な処理を短い数式で実行できます。"],
+["範囲","選択・操作","複数のセルをまとめて指定したものです。","A1からC5までのように複数セルをまとめて扱うときに使います。コピー、書式設定、計算などで登場します。"],
+["書式","見た目","文字サイズ、色、罫線、表示形式など、セルの見た目に関する設定です。","データそのものを変えずに表示方法を整える設定です。数字を日付や桁区切りで表示する場合なども書式です。"],
+["罫線","見た目","セルの周囲に引く線。表を見やすくするためによく使います。","セルの上下左右に線を設定できます。表の区切りや見出しを分かりやすくするために使います。"],
+["結合","見た目","複数のセルを一つにつなげる操作です。","タイトルなどを大きく配置する際に便利です。一方、データ表で多用すると並べ替えや集計がしにくくなる場合があります。"],
+["フィルター","データ整理","条件に合うデータだけを表示する機能です。","「営業部だけ」「1000円以上だけ」のように表示を絞れます。元データを削除せず、一時的に表示を絞り込むのが特徴です。"]
+];
+const groups={};data.forEach((x,i)=>(groups[x[1]]??=[]).push(`<a class="card" href="#detail-${i}"><div class="cat">${x[1]}</div><h3>${x[0]}</h3><p>${x[2]}</p><b style="color:#217346;font-size:13px">詳しく見る →</b></a>`));
+cards.innerHTML=Object.entries(groups).map(([g,c])=>`<h2>${g}</h2><div class="cards">${c.join("")}</div>`).join("");
+function show(){document.querySelectorAll(".page").forEach(e=>e.style.display="none");let h=location.hash||"#home";
+if(h=="#home"){home.style.display="block";return}if(h=="#terms"){terms.style.display="block";return}
+let m=h.match(/detail-(\d+)/);if(m&&data[m[1]]){let x=data[m[1]];detail.innerHTML=`<a class="back" href="#terms">← 単語一覧へ戻る</a><h1>${x[0]}</h1><div class="cat">${x[1]}</div><h2>簡単にいうと</h2><div class="simple">${x[2]}</div><h2>もう少し詳しく</h2><p>${x[3]}</p><div class="tip"><b>覚え方</b><br>最初から暗記する必要はありません。使っていて出てきたら、ここで確認しましょう。</div><a class="btn" href="#terms">他の単語を見る →</a>`;detail.style.display="block";return}location.hash="#home"}
+addEventListener("hashchange",show);show();
+</script></body></html>
